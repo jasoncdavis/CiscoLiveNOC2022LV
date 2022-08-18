@@ -1,0 +1,9 @@
+requests
+schedule
+ncclient
+MySQLdb
+git
+lxml
+webexteamssdk
+fabric
+urllib3
