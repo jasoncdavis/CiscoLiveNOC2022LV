@@ -1,0 +1,125 @@
+<html>
+<head>
+	<meta http-equiv="content-type" a="" content="text/html;
+charset=UTF-8"> 
+	<meta http-equiv="refresh" content="15"> 
+	<title>Cisco Live Wireless Client Radio Stats</title>
+	<style type="text/css">
+	* { box-sizing: border-box; }
+
+  body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: Helvetica, Arial, Sans-Serif;
+    padding: 100px; }
+
+  h1 {
+    text-align: center;
+    font-size: 130px;
+    font-weight: normal;
+    padding: 0;
+    margin: 0 0 80px 0; }
+
+	h2 {
+		font-weight: normal;
+		text-align: center;
+		font-size: 42px;
+		line-height: 1.3em;	}
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 162px; }
+
+  td {
+    padding: 0 0 25px 0;
+    border-radius: 12px; }
+
+  td.label {
+    width: 24%;
+    font-size: 45px; }
+
+  table.bar {
+    width: 100%;
+    margin: 0;
+    font-size: 26px;
+    table-layout: fixed; }
+
+  table.bar td {
+    padding: 25px 0;
+    font-size: 26px;
+    text-align: center;
+    overflow: hidden; }
+
+  ul#key {
+		list-style: none;
+		margin: 0 0 20px 0;
+		padding: 0;
+    float: right; }
+
+  ul#key li {
+		display: inline-block;
+		padding: 10px;
+		margin: 0; }
+
+  .left {
+    text-align: center;
+  }
+
+  .ax5-80211 {
+    background-color: red;
+  }
+  .ax24-80211 {
+    background-color: red;
+  }
+  .ac-80211 {
+    background-color: indianred;
+  }
+  .n5-80211 {
+    background-color: purple;
+  }
+  .n24-80211 {
+    background-color: sienna;
+  }
+  .g-80211 {
+    background-color: saddlebrown;
+  }
+  .a-80211 {
+    background-color: saddlebrown;
+  }
+  .b-80211 {
+    background-color: black;
+  }
+  </style>
+</head>
+<body>
+<h1>Wireless Client Distribution</h1>
+<h2>by SSID and RadioPHYType on ###CONTROLLER###</h2>
+<h2 class="left">###TOTALCLIENTS### Total Clients</h2>
+<table>
+    <tr>
+        <td class="label" />
+		<td>
+		<table class="bar">
+			<tr>
+        <!-- Remove if Wi-Fi 6 is in the venue 
+				<td class="ax5-80211" style="width: 15%;">Wi-Fi 6 (ax5)</td>
+				<td class="ax24-80211" style="width: 15%;">Wi-Fi 6 (ax24)</td>
+        -->
+				<td class="ac-80211" style="width: 10%;">Wi-Fi 5 (ac)</td>
+				<td class="n5-80211" style="width: 10%;">Wi-Fi 4 (n5)</td>
+				<td class="n24-80211" style="width: 10%;">Wi-Fi 4 (n24)</td>
+				<td class="g-80211" style="width: 5%;">802.11g</td>
+				<td class="a-80211" style="width: 5%;">802.11a</td>
+				<td class="b-80211" style="width: 5%;">802.11b</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+###SSIDTABLE###
+</table>
+<h2>
+	Last run as of ###RUNDATETIME### / Updated Every 2 Minutes 
+</h2>
+</body>
+</html>

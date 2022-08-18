@@ -1,0 +1,376 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 9,
+  "iteration": 1655411379643,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "right",
+            "axisSoftMax": 100,
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "area"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "V6CpTVwnk"
+          },
+          "query": "from(bucket: \"CLNOC\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"wireless-stats\")\n  |> filter(fn: (r) => r[\"metric\"] == \"wncd\")\n  |> filter(fn: (r) => r[\"device\"] == \"${WLC}\")\n  |> filter(fn: (r) => r[\"_field\"] == \"onemincpu\")\n  |> filter(fn: (r) => r[\"instance\"] == \"wncd_0\" or r[\"instance\"] == \"wncd_1\" or r[\"instance\"] == \"wncd_2\" or r[\"instance\"] == \"wncd_3\" or r[\"instance\"] == \"wncd_4\" or r[\"instance\"] == \"wncd_5\" or r[\"instance\"] == \"wncd_6\" or r[\"instance\"] == \"wncd_7\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "A"
+        }
+      ],
+      "title": "WNCd Process CPU for $WLC",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 2.4,
+        "x": 0,
+        "y": 9
+      },
+      "id": 4,
+      "maxPerRow": 12,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.4.7",
+      "repeat": "WNCd_instance",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "V6CpTVwnk"
+          },
+          "query": "from(bucket: \"CLNOC\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"wireless-stats\")\n  |> filter(fn: (r) => r[\"metric\"] == \"wncd\")\n  |> filter(fn: (r) => r[\"device\"] == \"${WLC}\")\n  |> filter(fn: (r) => r[\"instance\"] == \"${WNCd_instance}\")\n  |> filter(fn: (r) => r[\"_field\"] == \"onemincpu\")\n  |> last()\n",
+          "refId": "A"
+        }
+      ],
+      "title": "$WNCd_instance",
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "None": {
+                  "color": "#56565687",
+                  "index": 0,
+                  "text": "-"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2.4,
+        "x": 0,
+        "y": 15
+      },
+      "id": 5,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "pluginVersion": "8.4.7",
+      "repeat": "WNCd_instance",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "V6CpTVwnk"
+          },
+          "query": "from(bucket: \"CLNOC\")\n  |> range(start: -10m, stop: now())\n  |> filter(fn: (r) => r[\"_measurement\"] == \"wireless-stats\")\n  |> filter(fn: (r) => r[\"metric\"] == \"wncd\")\n  |> filter(fn: (r) => r[\"device\"] == \"${WLC}\")\n  |> filter(fn: (r) => r[\"instance\"] == \"${WNCd_instance}\")\n  |> filter(fn: (r) => r[\"_field\"] == \"sitetag\")\n  |> drop(columns: [\"_time\"])\n  |> last()\n  |> yield(name: \"last\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Site",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "None": {
+                  "index": 0,
+                  "text": "'None'"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 2.4,
+        "x": 0,
+        "y": 17
+      },
+      "id": 6,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.7",
+      "repeat": "WNCd_instance",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "V6CpTVwnk"
+          },
+          "query": "from(bucket: \"CLNOC\")\n  |> range(start: -60m, stop: now())\n  |> filter(fn: (r) => r[\"_measurement\"] == \"wireless-stats\")\n  |> filter(fn: (r) => r[\"metric\"] == \"wncd\")\n  |> filter(fn: (r) => r[\"device\"] == \"${WLC}\")\n  |> filter(fn: (r) => r[\"instance\"] == \"${WNCd_instance}\")\n  |> filter(fn: (r) => r[\"_field\"] == \"apsjoined\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "A"
+        }
+      ],
+      "title": "APs Joined",
+      "transparent": true,
+      "type": "stat"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 35,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "CLUS-WLC-SSO-1",
+          "value": "CLUS-WLC-SSO-1"
+        },
+        "definition": "import \"influxdata/influxdb/schema\"\n\nschema.measurementTagValues(bucket: \"CLNOC\", measurement: \"wireless-stats\", tag: \"device\")",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "WLC",
+        "options": [],
+        "query": "import \"influxdata/influxdb/schema\"\n\nschema.measurementTagValues(bucket: \"CLNOC\", measurement: \"wireless-stats\", tag: \"device\")",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "definition": "import \"influxdata/influxdb/schema\"\n\nschema.measurementTagValues(bucket: \"CLNOC\", measurement: \"wireless-stats\", tag: \"instance\")",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "WNCd_instance",
+        "options": [],
+        "query": "import \"influxdata/influxdb/schema\"\n\nschema.measurementTagValues(bucket: \"CLNOC\", measurement: \"wireless-stats\", tag: \"instance\")",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "WNCd",
+  "uid": "DbsmT3u7z",
+  "version": 37,
+  "weekStart": ""
+}

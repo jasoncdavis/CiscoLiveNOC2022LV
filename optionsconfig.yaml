@@ -1,0 +1,97 @@
+#optionsconfig.yaml
+#Configuration options for DevNet Dashboards project - contains target endpoint names/IPs, credentials, etc.
+
+# Threshold for ping latency warnings, in milliseconds
+LatencyThreshold: 15
+
+# Timezone for datetime to be shown on dashboard
+Timezone: US/Pacific
+
+# Dashboard file to publish: Apache on Linux - /var/www/html/DevNetDashboards/DDCAM/availability.html
+#   Apache in containerized version - /web-data/DevNetDashboards/DDCAM/availability.html
+DashboardFile: /var/local/DDCAM/index.html
+WirelessDashboardDirectory: /var/local/nfsshare-wireless
+
+# MySQL database for storing device and status information
+MySQL:
+  host: CHANGEME
+  CheckSSLCert: False  # Or False, if you are not security conscious and using self-signed certs internally
+  username: CHANGEME
+  password: CHANGEME
+  database: devnet_dashboards
+
+# InfluxDB database for storing timeseries data
+InfluxDB:
+  host: CHANGEME
+  alias: CHANGEME
+  protocol: http
+  port: 8086
+  influxtoken: 'CHANGEME'
+  influxbucket: CHANGEME
+  influxorg: CHANGEME
+  SSHusername: CHANGEME
+  SSHpassword: CHANGEME
+
+
+
+WLC:
+  - host: CHANGEME
+    alias: CHANGEME
+    description: CHANGEME
+    CheckSSLCert: False  # Or False, if you are not security conscious and using self-signed certs internally
+    username: CHANGEME
+    password: "CHANGEME"
+    backup_host: CHANGEME
+    backup_alias: CHANGEME
+  - host: CHANGEME
+    alias: CHANGEME
+    description: CHANGEME 
+    CheckSSLCert: False  # Or False, if you are not security conscious and using self-signed certs internally
+    username: CHANGEME
+    password: "CHANGEME"
+  - host: CHANGEME
+    description: CHANGEME
+    alias: CHANGEME
+    CheckSSLCert: False  # Or False, if you are not security conscious and using self-signed certs internally
+    username: CHANGEME
+    password: "CHANGEME"
+
+
+InterfaceDevices:
+  - host: CHANGEME
+    alias: CHANGEME
+    username: CHANGEME
+    password: CHANGEME
+  - host: CHANGEME
+    alias: CHANGEME
+    username: CHANGEME
+    password: CHANGEME
+
+# git repo info
+git:
+  host: localhost
+  directory: /opt/repo/configs
+  committer_name: "CLNOC Python Script NETCONFrpc-getConfig.py"
+  committer_email: "none@example.com"
+  author_name: "CLNOC Network Device"
+  author_email: "none@example.com"
+  description: CLNOC Device config repo
+
+# Webex Room Ids
+wirelessalerts_webexroomid: CHANGEME
+switchalerts_webexroomid: CHANGEME
+
+
+# AAA Cred default for automation usage
+AAA-default:
+  username: CHANGEME
+  password: "CHANGEME"
+
+# Meraki credentials
+Meraki:
+  APIkey: CHANGEME
+  baseURL: https://api.meraki.com/api/v1
+  orgId: CHANGEME
+  networkId: CHANGEME
+  timespan: 300
+  resolution: 300

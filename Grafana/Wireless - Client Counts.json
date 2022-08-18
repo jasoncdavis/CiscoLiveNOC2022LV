@@ -1,0 +1,482 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 18,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "string"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^_value$/",
+          "values": false
+        },
+        "text": {
+          "valueSize": 175
+        },
+        "textMode": "value"
+      },
+      "pluginVersion": "8.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "V6CpTVwnk"
+          },
+          "query": "from(bucket: \"CLNOC\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"wirelessclientcounts\")\n  |> filter(fn: (r) => r[\"controller\"] == \"CLUS-KNWLC-SSO-1\" or r[\"controller\"] == \"CLUS-WLC-SSO-1\" or r[\"controller\"] == \"Meraki\" or r[\"controller\"] == \"WLC-AIRRM-1\")\n  |> filter(fn: (r) => r[\"_field\"] == \"80211ac-count\" or r[\"_field\"] == \"80211ax2-count\" or r[\"_field\"] == \"80211ax5-count\" or r[\"_field\"] == \"80211n24-count\" or r[\"_field\"] == \"80211n5-count\" or r[\"_field\"] == \"total-count\")\n  |> last()\n  |> group()\n  |> sum()\n  |> yield(name: \"mean\")\n",
+          "refId": "A"
+        }
+      ],
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 10,
+      "options": {
+        "content": "<p style=\"font-size: 3.2em; padding: 70px 0;\">Total Wireless Clients</p>",
+        "mode": "html"
+      },
+      "pluginVersion": "8.4.7",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 6
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "V6CpTVwnk"
+          },
+          "query": "from(bucket: \"CLNOC\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"wirelessclientcounts\")\n  |> filter(fn: (r) => r[\"controller\"] == \"CLUS-WLC-SSO-1\")\n  |> filter(fn: (r) => r[\"_field\"] == \"80211ac-count\" or r[\"_field\"] == \"80211ax2-count\" or r[\"_field\"] == \"80211ax5-count\" or r[\"_field\"] == \"80211n24-count\" or r[\"_field\"] == \"80211n5-count\")\n  |> last()\n  |> group()\n  |> sum()\n  |> yield(name: \"mean\")\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Main Conference WLC SSO",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 6
+      },
+      "id": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "V6CpTVwnk"
+          },
+          "query": "from(bucket: \"CLNOC\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"wirelessclientcounts\")\n  |> filter(fn: (r) => r[\"controller\"] == \"CLUS-KNWLC-SSO-1\")\n  |> filter(fn: (r) => r[\"_field\"] == \"80211ac-count\" or r[\"_field\"] == \"80211ax2-count\" or r[\"_field\"] == \"80211ax5-count\" or r[\"_field\"] == \"80211n24-count\" or r[\"_field\"] == \"80211n5-count\")\n  |> last()\n  |> group()\n  |> sum()\n  |> yield(name: \"mean\")\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Key Note WLC SSO",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 6
+      },
+      "id": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "V6CpTVwnk"
+          },
+          "query": "from(bucket: \"CLNOC\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"wirelessclientcounts\")\n  |> filter(fn: (r) => r[\"controller\"] == \"WLC-AIRRM-1\")\n  |> filter(fn: (r) => r[\"_field\"] == \"80211ac-count\" or r[\"_field\"] == \"80211ax2-count\" or r[\"_field\"] == \"80211ax5-count\" or r[\"_field\"] == \"80211n24-count\" or r[\"_field\"] == \"80211n5-count\")\n  |> last()\n  |> group()\n  |> sum()\n  |> yield(name: \"mean\")\n",
+          "refId": "A"
+        }
+      ],
+      "title": "AIRRM WLC SSO",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 6
+      },
+      "id": 7,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "V6CpTVwnk"
+          },
+          "query": "from(bucket: \"CLNOC\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"wirelessclientcounts\")\n  |> filter(fn: (r) => r[\"controller\"] == \"Meraki\")\n  |> filter(fn: (r) => r[\"_field\"] == \"total-count\")\n  |> last()\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Meraki",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "right",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "80211a-count CLUS-KNWLC-SSO-1",
+                  "80211ac-count CLUS-KNWLC-SSO-1",
+                  "80211ax2-count CLUS-KNWLC-SSO-1",
+                  "80211ax5-count CLUS-KNWLC-SSO-1",
+                  "80211b-count CLUS-KNWLC-SSO-1",
+                  "80211g-count CLUS-KNWLC-SSO-1",
+                  "80211n24-count CLUS-KNWLC-SSO-1",
+                  "80211n5-count CLUS-KNWLC-SSO-1",
+                  "80211a-count CLUS-WLC-SSO-1",
+                  "80211ac-count CLUS-WLC-SSO-1",
+                  "80211ax2-count CLUS-WLC-SSO-1",
+                  "80211ax5-count CLUS-WLC-SSO-1",
+                  "80211b-count CLUS-WLC-SSO-1",
+                  "80211g-count CLUS-WLC-SSO-1",
+                  "80211n24-count CLUS-WLC-SSO-1",
+                  "80211n5-count CLUS-WLC-SSO-1",
+                  "80211a-count WLC-AIRRM-1",
+                  "80211ac-count WLC-AIRRM-1",
+                  "80211ax2-count WLC-AIRRM-1",
+                  "80211ax5-count WLC-AIRRM-1",
+                  "80211b-count WLC-AIRRM-1",
+                  "80211g-count WLC-AIRRM-1",
+                  "80211n24-count WLC-AIRRM-1",
+                  "80211n5-count WLC-AIRRM-1"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 24,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "sortBy": "Last *",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "V6CpTVwnk"
+          },
+          "query": "from(bucket: \"CLNOC\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"wirelessclientcounts\")\n  |> filter(fn: (r) => r[\"controller\"] == \"CLUS-WLC-SSO-1\" or r[\"controller\"] == \"CLUS-KNWLC-SSO-1\" or r[\"controller\"] == \"WLC-AIRRM-1\")\n  |> filter(fn: (r) => r[\"_field\"] == \"80211a-count\" or r[\"_field\"] == \"80211ac-count\" or r[\"_field\"] == \"80211ax2-count\" or r[\"_field\"] == \"80211ax5-count\" or r[\"_field\"] == \"80211b-count\" or r[\"_field\"] == \"80211g-count\" or r[\"_field\"] == \"80211n24-count\" or r[\"_field\"] == \"80211n5-count\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "V6CpTVwnk"
+          },
+          "hide": false,
+          "query": "from(bucket: \"CLNOC\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"wirelessclientcounts\")\n  |> filter(fn: (r) => r[\"controller\"] == \"Meraki\")\n  |> filter(fn: (r) => r[\"_field\"] == \"total-count\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "B"
+        }
+      ],
+      "transparent": true,
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 35,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-2d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Wireless Client Counts",
+  "uid": "bKNRyDCnk",
+  "version": 24,
+  "weekStart": ""
+}
